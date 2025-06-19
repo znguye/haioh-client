@@ -1,20 +1,18 @@
-import { Smile, Bell, MessageCircle, UserCircle, ChevronDown} from "lucide-react";
+import { Smile, Bell, MessageCircle, ChevronDown } from "lucide-react";
+import './TopNavBar.css';
 
-export default function TopNavBar(){
-    return(
-            <div className="flex items-center justify-between w-full px-4 py-3 bg-gray-100 shadow-md">
-                <div className="flex items-center gap-2">
-                    <Smile className="w-6 h-6" />
-                    <span className="text-lg font-bold">haioh</span>
-                </div>
-                
-                <div className="flex items-center gap-4">
-                    <Bell className="w-5 h-5" />
-                    <MessageCircle className="w-5 h-5" />
-                    <div className="flex items-center gap-1">
-                        <ChevronDown className="w-4 h-4" />
-                    </div>
-                </div>
-        </div>
-    )
+export default function TopNavBar() {
+  return (
+    <div className="top-nav">
+      <div className="nav-left">
+        <Smile className="nav-icon" />
+        <span className="nav-title">haioh</span>
+      </div>
+      <div className="nav-right">
+        <Bell className="nav-icon" />
+        <MessageCircle className="nav-icon" />
+        <ChevronDown className="nav-icon-small" />
+      </div>
+    </div>
+  );
 }

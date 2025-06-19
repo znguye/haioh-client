@@ -1,9 +1,10 @@
 import { Button } from "../buttons/Button.jsx";
 import { X, Check, HelpCircle } from "lucide-react";
+import './ActionButtons.css';
 
 export default function ActionButtons() {
   return (
-    <div className="flex justify-end gap-4 mt-4 w-72">
+    <div className="action-buttons">
       <Button variant="outline" size="icon">
         <X className="w-5 h-5" />
       </Button>
