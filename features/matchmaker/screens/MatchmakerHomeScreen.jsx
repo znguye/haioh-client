@@ -9,13 +9,13 @@ export default function MatchmakerHomeScreen() {
       id: 1,
       name: "Ellie",
       tagline: "Ellie loves cats and coding — find her a fellow cat dad 🐈‍⬛",
-      photo: "https://picsum.photos/200?random=1"
+      photo: "https://images.pexels.com/photos/1777479/pexels-photo-1777479.jpeg"
     },
     {
       id: 2,
       name: "Josh",
       tagline: "Josh builds drones but hasn’t landed a date yet 🚁",
-      photo: "https://picsum.photos/200?random=2"
+      photo: "https://images.pexels.com/photos/2915216/pexels-photo-2915216.jpeg"
     },
   ];
 

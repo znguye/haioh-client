@@ -8,7 +8,7 @@ import './ActionButtons.css';
 const matchmakerData = {
   currentUser: {
     name: "Valerie Tan",
-    avatar: "https://randomuser.me/api/portraits/women/79.jpg",
+    avatar: 'https://images.pexels.com/photos/32630160/pexels-photo-32630160.jpeg',
     id: "valerie",
   },
   matchableFriends: [

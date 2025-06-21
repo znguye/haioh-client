@@ -1,5 +1,5 @@
-import { Bell, MessageCircle, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import SettingsDropdown from "../../../features/settings/SettingsDropdown";
 import './TopNavBar.css';
 
 // Import images for the role toggle
@@ -35,9 +35,7 @@ export default function TopNavBar() {
         </Link>
       </div>
       <div className="nav-right">
-        <Bell className="nav-icon" />
-        <MessageCircle className="nav-icon" />
-        <ChevronDown className="nav-icon-small" />
+        <SettingsDropdown />
       </div>
     </div>
   );
