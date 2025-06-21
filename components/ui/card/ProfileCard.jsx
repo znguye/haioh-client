@@ -8,7 +8,7 @@ export default function ProfileCard({ name, photo, tagline }) {
         <img
           src={photo}
           alt={`Photo of ${name}`}
-          className="profile-photo"
+          className="profile-card-photo"
         />
 
         <div className="action-row">

@@ -1,5 +1,5 @@
 import { Button } from "../buttons/Button.jsx";
-import { Ban, HandHeart, HandHelping } from "lucide-react";
+import { Ban, Heart, CircleQuestionMark, } from "lucide-react";
 import './ActionButtons.css';
 
 export default function ActionButtons() {
@@ -9,10 +9,10 @@ export default function ActionButtons() {
         <Ban className="w-5 h-5" />
       </Button>
       <Button variant="outline" size="icon">
-        <HandHelping className="w-5 h-5" />
+        <CircleQuestionMark className="w-5 h-5" />
       </Button>
       <Button variant="outline" size="icon">
-        <HandHeart className="w-5 h-5" />
+        <Heart className="w-5 h-5" />
       </Button>
     </div>
   );

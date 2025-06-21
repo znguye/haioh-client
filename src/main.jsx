@@ -1,14 +1,16 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
+import { RoleProvider } from '../context/RoleContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <RoleProvider>
+        <App />
+      </RoleProvider>
     </BrowserRouter>
   </StrictMode>
 );

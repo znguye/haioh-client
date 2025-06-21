@@ -1,11 +1,11 @@
 .top-nav {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+  justify-content: space-around;
   align-items: center;
-  padding: 0.75rem 1rem;
-  background-color: #ffffff;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  border-bottom: 1px solid #eee;
+  height: 56px;
+  background-color: white;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.05);
 }
 
 .nav-left, .nav-right {
