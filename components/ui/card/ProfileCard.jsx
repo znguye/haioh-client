@@ -1,7 +1,7 @@
 import './ProfileCard.css';
 import ActionButtons from '../buttons/ActionButtons';
 
-export default function ProfileCard({ name, photo, tagline }) {
+export default function ProfileCard({ name, photo, tagline, role }) {
   return (
     <div className="profile-card">
       <div className="photo-container">
@@ -12,7 +12,7 @@ export default function ProfileCard({ name, photo, tagline }) {
         />
 
         <div className="action-row">
-          <ActionButtons />
+          <ActionButtons role={role} />
         </div>
       </div>
 

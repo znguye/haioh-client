@@ -1,4 +1,3 @@
-import React from 'react';
 import TopNavBar from "../../../components/ui/navbars/TopNavBar.jsx";
 import BottomNavBarLoner from "../../../components/ui/navbars/BottomNavbarLoner.jsx";
 import './LonerProfile.css'; 

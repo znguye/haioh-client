@@ -5,12 +5,12 @@ import './BottomNavBar.css';
 export default function BottomNavBarLoner() {
   return (
     <nav className="bottom-nav">
-      <NavItem icon={<Home size={22} />} a="Home" Link to="/" />
-      <NavItem icon={<Swords size={22} />} a="Challenges" to="/challenges" />
-      <NavItem icon={<Heart size={22} />} a="Matches" to="/matches" />
-      <NavItem icon={<Search size={22} />} a="Search" to="/search" />
-      <NavItem icon={<User size={22} />} a="Profile" Link to="/profile" />
-      <NavItem icon={<BookOpenCheck size={22} />} a="Questionaire" to="/questionaire" />
+      <NavItem icon={<Home size={22} />} alt="Home" Link to="/" />
+      <NavItem icon={<Swords size={22} />} alt="Challenges" to="/challenges" />
+      <NavItem icon={<Heart size={22} />} alt="Matches" to="/matches" />
+      <NavItem icon={<Search size={22} />} alt="Search" to="/search" />
+      <NavItem icon={<User size={22} />} alt="Profile" Link to="/profile" />
+      <NavItem icon={<BookOpenCheck size={22} />} alt="Questionaire" to="/questionaire" />
     </nav>
   );
 }

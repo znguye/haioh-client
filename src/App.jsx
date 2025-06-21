@@ -1,5 +1,5 @@
 import {Routes, Route} from "react-router-dom";
-import { useRole } from "../context/RoleContext.jsx";
+import useRole from "../context/useRole.jsx";
 
 //Loner Screens
 import LonerHomeScreen from "../features/loner/screens/LonerHomeScreen.jsx"
@@ -14,9 +14,12 @@ export default function App() {
   const { role } = useRole();
   console.log("Current role:", role);
 
+  // Add a loading fallback while role is being retrieved
+  if (!role) return <div>Loading...</div>;
+
   return (
     <>
-      <Routes>
+      <Routes key={role}>
         {role === 'loner' ? (
           <>
             <Route path="/" element={<LonerHomeScreen />} />

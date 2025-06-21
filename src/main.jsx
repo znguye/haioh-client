@@ -3,7 +3,7 @@ import { StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
-import { RoleProvider } from '../context/RoleContext.jsx';
+import RoleProvider from '../context/RoleProvider.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <StrictMode>

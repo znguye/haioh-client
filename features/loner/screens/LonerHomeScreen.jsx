@@ -52,6 +52,7 @@ const mockProfiles = [
               name={person.name} 
               photo={person.photo} 
               tagline={person.tagline}
+              role="loner"
             />
           ))}
         </div>
