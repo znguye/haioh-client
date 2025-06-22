@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Auth.css';
+import '../../auth/Auth.css';
 
 export default function LoginScreen({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -44,7 +44,13 @@ export default function LoginScreen({ onLogin }) {
         <p href="#" className="forgot-link">Forgot your password?</p>
 
         <button type="submit" className="login-btn">Login</button>
-        <button type="button" className="google-btn">Login with Google</button>
+        <button 
+            type="button" 
+            className="google-btn"
+            onClick={() => alert('Google Sign Up not implemented yet')}
+        >
+            Sign Up with Google
+        </button>
 
         <p className="signup-text">
           Don’t have an account? <a href="/signup">Sign up</a>

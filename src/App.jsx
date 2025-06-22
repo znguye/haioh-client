@@ -4,7 +4,7 @@ import {useState} from "react";
 
 //Login Screens
 import LoginScreen from "../features/auth/Login/LoginScreen.jsx";
-// import SignupScreen from "../features/auth/Signup/SignupScreen.jsx";
+import SignupScreen from "../features/auth/Signup/SignUpScreen.jsx";
 
 //Loner Screens
 import LonerHomeScreen from "../features/loner/screens/LonerHomeScreen.jsx"
@@ -22,17 +22,23 @@ export default function App() {
   const [user, setUser] = useState(null);
   const location = useLocation();
 
-  // Always allow auth
-  if (location.pathname === '/auth') {
+  // Always allow access to login and signup screens
+  if (location.pathname === '/login') {
     return <LoginScreen setUser={setUser} />;
+  }
+  
+  if (location.pathname === '/signup') {
+    return <SignupScreen onSignUp={setUser} />;
   }
 
   // Redirect to login if no user is set and not on the login page
   if (!user && location.pathname !== '/login') {
     return (
       <Routes>
-        <Route path="/auth" element={<LoginScreen onLogin={setUser} />} />
-        <Route path="*" element={<Navigate to="/auth" replace />} />
+        <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
+        <Route path="/signup" element={<SignupScreen onSignUp={setUser} />} />
+        {/* Redirect all other paths to login */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     );
   }
