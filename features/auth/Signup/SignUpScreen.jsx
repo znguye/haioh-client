@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../auth/Auth.css';
 import { Link } from 'react-router-dom';
 
-export default function SignUpScreen({ onSignUp }) {
+export default function SignUpScreen() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,8 +14,8 @@ export default function SignUpScreen({ onSignUp }) {
         // Mock signup logic to store user data in localStorage
         const newUser = { email };
         localStorage.setItem(email, JSON.stringify(newUser));
-        onSignUp(newUser);
-        navigate('/'); // Redirect to home after signup
+        // onSignUp(newUser);
+        navigate('/signup/name'); // Redirect to name entry after signup
     };
 
     return (
@@ -36,16 +36,13 @@ export default function SignUpScreen({ onSignUp }) {
                 <label>Password</label>
                 <input
                     type="password"
-                    placeholder="••••••••"
+                    placeholder="••••••"
                     value = {password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
 
-                <button 
-                    type="submit" 
-                    className="login-btn"
-                >
+                <button type="submit" className="login-btn">
                     Sign Up
                 </button>
 

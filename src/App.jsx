@@ -4,7 +4,7 @@ import {useState} from "react";
 
 //Login Screens
 import LoginScreen from "../features/auth/Login/LoginScreen.jsx";
-import SignupScreen from "../features/auth/Signup/SignUpScreen.jsx";
+import OnboardingFlow from "../features/auth/Signup/OnboardingFlow.jsx";
 
 //Loner Screens
 import LonerHomeScreen from "../features/loner/screens/LonerHomeScreen.jsx"
@@ -17,26 +17,15 @@ import MatchmakerAdminScreen from "../features/matchmaker/screens/MatchmakerAdmi
 
 export default function App() {
   const { role } = useRole();
-  console.log("Current role:", role);
-
   const [user, setUser] = useState(null);
   const location = useLocation();
-
-  // Always allow access to login and signup screens
-  if (location.pathname === '/login') {
-    return <LoginScreen setUser={setUser} />;
-  }
-  
-  if (location.pathname === '/signup') {
-    return <SignupScreen onSignUp={setUser} />;
-  }
 
   // Redirect to login if no user is set and not on the login page
   if (!user && location.pathname !== '/login') {
     return (
       <Routes>
         <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
-        <Route path="/signup" element={<SignupScreen onSignUp={setUser} />} />
+        <Route path="/signup/*" element={<OnboardingFlow setUser={setUser} />} />
         {/* Redirect all other paths to login */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
@@ -48,18 +37,28 @@ export default function App() {
 
   return (
     <>
-      <Routes key={role}>
-        {role === 'loner' ? (
-          <>
-            <Route path="/" element={<LonerHomeScreen />} />
-            <Route path="/profile" element={<LonerProfile />} />
-          </>
+      <Routes>
+        {/* Public routes */}
+        <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
+        <Route path="/signup/*" element={<OnboardingFlow setUser={setUser} />} />
+
+        {/* Protected routes */}
+        {user ? (
+          role === "loner" ? (
+            <>
+              <Route path="/" element={<LonerHomeScreen />} />
+              <Route path="/profile" element={<LonerProfile />} />
+            </>
+          ) : (
+            <>
+              <Route path="/" element={<MatchmakerHomeScreen />} />
+              <Route path="/create-profile" element={<CreateProfileScreen />} />
+              <Route path="/admin" element={<MatchmakerAdminScreen />} />
+            </>
+          )
         ) : (
-          <>
-            <Route path="/" element={<MatchmakerHomeScreen />} />
-            <Route path="/create-profile" element={<CreateProfileScreen />} />
-            <Route path="/admin" element={<MatchmakerAdminScreen />} />
-          </>
+          // Catch-all if user is not logged in
+          <Route path="*" element={<Navigate to="/login" replace />} />
         )}
       </Routes>
     </>

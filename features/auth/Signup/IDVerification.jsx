@@ -1,0 +1,1 @@
+// To verify that the user is a real person, we ask them to upload a photo of their ID
