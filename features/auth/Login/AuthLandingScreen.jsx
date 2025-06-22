@@ -1,0 +1,1 @@
+// A cool first screen whenever the user opens the app.

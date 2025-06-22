@@ -1,23 +1,28 @@
 .top-nav {
-    display: flex;
-  justify-content: space-around;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 56px;
   background-color: white;
   border-top: 1px solid #eee;
   box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.05);
+  padding: 0 1rem;
 }
 
-.nav-left, .nav-right {
+/* LEFT AND RIGHT */
+.nav-left,
+.nav-right {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  z-index: 1; 
 }
 
+/* LOGO + TITLE */
 .nav-logo-link {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
   text-decoration: none;
   /* color: inherit; */
 }
@@ -25,15 +30,29 @@
 .nav-title {
   font-size: 1.125rem;
   font-weight: bold;
-  vertical-align: middle;
-  line-height: 1;
+  white-space: nowrap;
 }
 
+/* CENTERED FISH ICON */
+.top-nav::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(150%, -50%);
+  display: block;
+  width: 22px;
+  height: 22px;
+  background-image: url('/path/to/fish-icon.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ICONS */
 .nav-icon {
   width: 22px;
   height: 22px;
   color: #333;
-  vertical-align: middle;
 }
 
 .nav-icon-small {

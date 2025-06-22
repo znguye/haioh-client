@@ -1,5 +1,10 @@
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate, useLocation} from "react-router-dom";
 import useRole from "../context/useRole.jsx";
+import {useState} from "react";
+
+//Login Screens
+import LoginScreen from "../features/auth/Login/LoginScreen.jsx";
+// import SignupScreen from "../features/auth/Signup/SignupScreen.jsx";
 
 //Loner Screens
 import LonerHomeScreen from "../features/loner/screens/LonerHomeScreen.jsx"
@@ -13,6 +18,24 @@ import MatchmakerAdminScreen from "../features/matchmaker/screens/MatchmakerAdmi
 export default function App() {
   const { role } = useRole();
   console.log("Current role:", role);
+
+  const [user, setUser] = useState(null);
+  const location = useLocation();
+
+  // Always allow auth
+  if (location.pathname === '/auth') {
+    return <LoginScreen setUser={setUser} />;
+  }
+
+  // Redirect to login if no user is set and not on the login page
+  if (!user && location.pathname !== '/login') {
+    return (
+      <Routes>
+        <Route path="/auth" element={<LoginScreen onLogin={setUser} />} />
+        <Route path="*" element={<Navigate to="/auth" replace />} />
+      </Routes>
+    );
+  }
 
   // Add a loading fallback while role is being retrieved
   if (!role) return <div>Loading...</div>;
