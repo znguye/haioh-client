@@ -2,7 +2,8 @@ import {Routes, Route, Navigate, useLocation} from "react-router-dom";
 import useRole from "../context/useRole.jsx";
 import {useState} from "react";
 
-//Login Screens
+// Auth Screens
+import AuthLandingScreen from "../features/auth/Login/AuthLandingScreen.jsx";
 import LoginScreen from "../features/auth/Login/LoginScreen.jsx";
 import OnboardingFlow from "../features/auth/Signup/OnboardingFlow.jsx";
 
@@ -17,20 +18,31 @@ import MatchmakerAdminScreen from "../features/matchmaker/screens/MatchmakerAdmi
 
 export default function App() {
   const { role } = useRole();
-  const [user, setUser] = useState(null);
   const location = useLocation();
+  const [user, setUser] = useState(null);
 
-  // Redirect to login if no user is set and not on the login page
-  if (!user && location.pathname !== '/login') {
-    return (
-      <Routes>
-        <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
-        <Route path="/signup/*" element={<OnboardingFlow setUser={setUser} />} />
-        {/* Redirect all other paths to login */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    );
-  }
+// Test main pages
+//   const [user, setUser] = useState(() => {
+//   // Bypass login for development
+//   return { email: "mock@example.com" };
+// });
+
+// Redirect unauthenticated users to auth page
+if (!user && !["/login", "/signup", "/auth"].includes(location.pathname)) {
+  return <Navigate to="/auth" replace />;
+}
+
+// If user is not logged in, show auth routes
+if (!user) {
+  return (
+    <Routes>
+      <Route path="/auth" element={<AuthLandingScreen />} />
+      <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
+      <Route path="/signup/*" element={<OnboardingFlow setUser={setUser} />} />
+      <Route path="*" element={<Navigate to="/auth" replace />} />
+    </Routes>
+  );
+}
 
   // Add a loading fallback while role is being retrieved
   if (!role) return <div>Loading...</div>;
@@ -42,7 +54,7 @@ export default function App() {
         <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
         <Route path="/signup/*" element={<OnboardingFlow setUser={setUser} />} />
 
-        {/* Protected routes */}
+        {/* Protected role-based routes */}
         {user ? (
           role === "loner" ? (
             <>
@@ -57,7 +69,6 @@ export default function App() {
             </>
           )
         ) : (
-          // Catch-all if user is not logged in
           <Route path="*" element={<Navigate to="/login" replace />} />
         )}
       </Routes>

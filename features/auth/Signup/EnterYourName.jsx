@@ -23,7 +23,7 @@ export default function EnterYourName() {
             lastName,
             userName,
         });
-        navigate('/signup/basic-info'); // Redirect to basic info after entering name
+        navigate('basic-info'); // Redirect to basic info after entering name
     };
 
     return (

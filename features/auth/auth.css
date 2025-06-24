@@ -1,3 +1,11 @@
+/* Ensure padding and borders are included within the width */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -10,9 +18,8 @@
 .login-form {
   background: white;
   padding: 2rem;
-  /* border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1); */
-  width: auto
+  width: 100%;
+  max-width: 90vw;
 }
 
 .login-form h2 {
@@ -64,13 +71,12 @@
   padding: 0.6rem;
   background: black;
   color: white;
-  border: none;
   border-radius: 6px;
-  cursor: pointer;
   font-size: 0.875rem;
 }
 
-.google-btn {
+ 
+/* .google-btn {
   margin-top: 0.5rem;
   width: 100%;
   padding: 0.6rem;
@@ -79,7 +85,7 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.875rem;
-}
+} */
 
 .signup-text {
   margin-top: 1rem;

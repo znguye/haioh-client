@@ -46,13 +46,13 @@ export default function SignUpScreen() {
                     Sign Up
                 </button>
 
-                <button 
+                {/* <button 
                     type="button" 
                     className="google-btn"
                     onClick={() => alert('Google Sign Up not implemented yet')}
                 >
                     Sign Up with Google
-                </button>
+                </button> */}
 
                 <p className="signup-text">
                     Already have an account? <Link to="/login">Login</Link>
