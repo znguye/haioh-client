@@ -10,12 +10,12 @@ export default function SignUpScreen() {
 
     const handleSignUp = (e) => {
         e.preventDefault();
-
         // Mock signup logic to store user data in localStorage
-        const newUser = { email };
+        const newUser = { email, password};
         localStorage.setItem(email, JSON.stringify(newUser));
         // onSignUp(newUser);
-        navigate('/signup/name'); // Redirect to name entry after signup
+        console.log("Navigating to /signup/name");
+        navigate('name'); // Redirect to name entry after signup using relative route
     };
 
     return (

@@ -92,3 +92,59 @@
   font-size: 0.75rem;
   text-align: center;
 }
+
+/* Apply to ALL form inputs + selects consistently */
+.login-form input,
+.login-form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+/* Reset default appearance for select */
+.login-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2rem; /* space for dropdown arrow */
+  cursor: pointer;
+}
+
+
+.selection-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.selection-option {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.selection-option:hover {
+  background-color: #eee;
+}
+
+.selection-option.selected {
+  background-color: black;
+  color: white;
+  border-color: black;
+}

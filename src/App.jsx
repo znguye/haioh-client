@@ -5,7 +5,13 @@ import {useState} from "react";
 // Auth Screens
 import AuthLandingScreen from "../features/auth/Login/AuthLandingScreen.jsx";
 import LoginScreen from "../features/auth/Login/LoginScreen.jsx";
+
+// Onboarding Screens
 import OnboardingFlow from "../features/auth/Signup/OnboardingFlow.jsx";
+import SignUpScreen from "../features/auth/Signup/SignUpScreen.jsx";
+import EnterYourName from "../features/auth/Signup/EnterYourName.jsx";
+import BasicInfo from "../features/auth/Signup/BasicInfo.jsx";
+import WelcomeToApp from "../features/auth/Signup/WelcomeToApp.jsx";
 
 //Loner Screens
 import LonerHomeScreen from "../features/loner/screens/LonerHomeScreen.jsx"
@@ -28,7 +34,7 @@ export default function App() {
 // });
 
 // Redirect unauthenticated users to auth page
-if (!user && !["/login", "/signup", "/auth"].includes(location.pathname)) {
+if (!user && !location.pathname.startsWith("/signup") && location.pathname !== "/login" && location.pathname !== "/auth") {
   return <Navigate to="/auth" replace />;
 }
 
@@ -38,7 +44,14 @@ if (!user) {
     <Routes>
       <Route path="/auth" element={<AuthLandingScreen />} />
       <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
-      <Route path="/signup/*" element={<OnboardingFlow setUser={setUser} />} />
+      
+      <Route path="/signup" element={<OnboardingFlow />}>
+          <Route index element={<SignUpScreen />} />
+          <Route path="name" element={<EnterYourName />} />
+          <Route path="basic-info" element={<BasicInfo />} />
+          <Route path="welcome-to-app" element={<WelcomeToApp />} />
+        </Route>
+
       <Route path="*" element={<Navigate to="/auth" replace />} />
     </Routes>
   );
@@ -52,20 +65,22 @@ if (!user) {
       <Routes>
         {/* Public routes */}
         <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
-        <Route path="/signup/*" element={<OnboardingFlow setUser={setUser} />} />
+        {/* <Route path="/signup/" element={<OnboardingFlow setUser={setUser} />} /> */}
+        <Route path="*" element={<Navigate to="/auth" replace />} />
+
 
         {/* Protected role-based routes */}
         {user ? (
-          role === "loner" ? (
-            <>
-              <Route path="/" element={<LonerHomeScreen />} />
-              <Route path="/profile" element={<LonerProfile />} />
-            </>
-          ) : (
+          role === "matchmaker" ? (
             <>
               <Route path="/" element={<MatchmakerHomeScreen />} />
               <Route path="/create-profile" element={<CreateProfileScreen />} />
               <Route path="/admin" element={<MatchmakerAdminScreen />} />
+            </>
+          ) : (
+            <>
+              <Route path="/" element={<LonerHomeScreen />} />
+              <Route path="/profile" element={<LonerProfile />} />
             </>
           )
         ) : (

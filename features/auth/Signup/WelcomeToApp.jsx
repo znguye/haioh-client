@@ -10,16 +10,26 @@ export default function WelcomeToApp() {
     const { userData } = useOnboarding();
 
     const handleContinue = () => {
-        localStorage.setItem('user', JSON.stringify(userData));
-        window.dispatchEvent(new CustomEvent('userSignedIn', { detail: userData }));
-        navigate('/'); // Redirect to home page after welcome
+      // Save user info to localStorage
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      // Notify app that user has signed in
+      window.dispatchEvent(new CustomEvent('userSignedIn', { detail: userData }));
+
+      // Set role explicitly if it's in userData
+      if (userData?.role === 'loner' || userData?.role === 'matchmaker') {
+        localStorage.setItem('yakrush-role', userData.role);
+      }
+
+      // Redirect to home page after welcome
+      navigate('/'); 
     };
 
   return (
     <div className="login-container">
       <div className="login-form">
-        <h2>Welcome! {userData?.firstName || userData?.username}</h2>
-        <p>You're all set to begin Yakrush journey.</p>
+        <h2>Welcome, {userData?.firstName || userData?.username}!</h2>
+        <p>Your Cupid mode has been activated.</p>
 
         <button 
             className="login-btn" 

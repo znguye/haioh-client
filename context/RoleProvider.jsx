@@ -12,9 +12,10 @@ export default function RoleProvider({ children }){
       setRole(storedRole);
     } else {
       // Default to 'loner' if no valid role is found
-      setRole('loner');
+      setRole('matchmaker');
     }
   }, []);
+
 
   const toggleRole = () => {
     const newRole = role === 'loner' ? 'matchmaker' : 'loner';
