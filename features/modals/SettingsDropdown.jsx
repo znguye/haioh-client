@@ -38,12 +38,17 @@ export default function SettingsDropdown() {
           </div>
           <ul className="settings-options">
             <li>Settings</li>
-            <li>Get Help</li>
+            <li>Help</li>
             <li>Privacy</li>
             <li>Legal</li>
             <li className="logout">
                 <Link to ="/auth" onClick={() => setIsOpen(false)}>
                     Logout
+                </Link>
+            </li>
+            <li className="logout">
+                <Link to ="/auth" onClick={() => setIsOpen(false)}>
+                    Delete Account
                 </Link>
             </li>
           </ul>

@@ -1,0 +1,237 @@
+/* === Base === */
+* {
+    font-family: 'Inter', system-ui, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.screen-container {
+  background: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.top-nav-wrapper,
+.bottom-nav-wrapper {
+  z-index: 100;
+}
+
+/* === Profile Card === */
+.profile-card.flat-style {
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  box-shadow: none;
+}
+
+/* === Header Image === */
+.header-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 30vh; /* cropped to 1/4 of screen height */
+  overflow: hidden;
+  /* Repositioning image */
+  background-image: url(...); /* Placeholder for background image */
+  background-size: cover;
+  background-position: center 50%; /* Let user change 50% */
+}
+
+.header-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* === Edit Button === */
+.edit-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  border: none;
+  padding: 0.3rem;
+  color: #ffffff;
+  z-index: 10;
+  background-color: transparent;
+}
+
+.edit-controls button {
+  border: none;
+  padding: 0.3rem;
+  cursor: pointer;
+  color: #f8f6f6;
+  background-color: transparent;
+}
+
+.edit-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+  /* gap: 0.5rem; */
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10;
+  background-color: transparent;
+  transition: background 0.2s ease;
+}
+
+/* === Meta Info === */
+.profile-meta {
+  text-align: center;
+  padding: 1rem;
+}
+
+.profile-username {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
+  /* margin-bottom: 1px; */
+}
+
+.profile-basic-info {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* === Tagline === */
+.tagline-box.no-bg, .description-input, .tagline-input {
+  /* padding: 0.5rem 1rem; */
+  /* text-align: left; */
+  /* margin-bottom: 0.25rem; */
+  margin-top: 1rem;
+  width: 90vw;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  font-weight: 700;
+  /* text-align: left; */
+}
+
+/* .tagline-purple {
+  color: #000000;
+} */
+
+.tagline-input{
+  width: 100%;
+  padding: 0.25rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: 1px solid #e2e2e2;
+  /* border-radius: 0px; */
+  /* resize: vertical; */
+}
+
+/* === Description === */
+.description-swiper.fixed-height {
+  height: 120px; /* control height */
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0rem;
+}
+
+.description-input{
+  width: 100%;
+  height: 120px; /* control height */
+  padding: 0.25rem;
+  font-size: 0.9rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 0px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.description-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;  /* makes dots go to bottom */
+  align-items: center;
+  width: 100%;
+}
+
+.description-inner .description {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding-bottom: 4px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background-color: #bbb;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #333;
+}
+
+
+/* === Divider === */
+.divider {
+  border: none;
+  height: 1px;
+  background-color: #ddd;
+  margin: 0rem 1.25rem 0.75rem 1.25rem;
+}
+
+/* === ActionButtons === */
+.actions-row.column-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0.75rem 1.5rem 2rem;
+}
+
+.action-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.action-btn.light {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.action-btn.light:hover {
+  background-color: #eaeaea;
+}
+
+.action-btn.dark {
+  background-color: #111;
+  color: #fff;
+}
+
+.action-btn.dark:hover {
+  background-color: #000;
+}

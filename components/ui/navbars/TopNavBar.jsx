@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SettingsDropdown from "../../../features/settings/SettingsDropdown";
+import SettingsDropdown from "../../../features/modals/SettingsDropdown";
 import './TopNavBar.css';
 
 // Import images for the role toggle

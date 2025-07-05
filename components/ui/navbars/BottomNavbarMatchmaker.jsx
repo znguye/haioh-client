@@ -1,4 +1,4 @@
-import { Home, User, Search, BookOpenCheck } from "lucide-react";
+import { Home, User, Search, BookOpenCheck, SquareKanban } from "lucide-react";
 import { Link } from "react-router-dom";
 import './BottomNavBar.css';
 
@@ -6,9 +6,10 @@ export default function BottomNavBarMatchmaker() {
   return (
     <nav className="bottom-nav">
       <NavItem icon={<Home size={22} />} alt="Home" Link to="/" />
-      <NavItem icon={<Search size={22} />} alt="Search" to="/search" />
-      <NavItem icon={<User size={22} />} alt="Profile" Link to="/profile" />
-      <NavItem icon={<BookOpenCheck size={22} />} alt="Questionaire" to="/questionaire" />
+      <NavItem icon={<Search size={22} />} alt="Search" to="/feature-coming-soon" />
+      <NavItem icon={<User size={22} />} alt="Profile" Link to="/create-profile" />
+      <NavItem icon={<SquareKanban size={22} />} alt="Dashboard" to="/dashboard" />
+      <NavItem icon={<BookOpenCheck size={22} />} alt="Questionaire" to="/feature-coming-soon"  />
     </nav>
   );
 }

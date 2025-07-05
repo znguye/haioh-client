@@ -8,7 +8,7 @@ export default function BottomNavBarLoner() {
       <NavItem icon={<Home size={22} />} alt="Home" Link to="/" />
       <NavItem icon={<Swords size={22} />} alt="Challenges" to="/challenges" />
       <NavItem icon={<Heart size={22} />} alt="Matches" to="/matches" />
-      <NavItem icon={<Search size={22} />} alt="Search" to="/search" />
+      <NavItem icon={<Search size={22} />} alt="Search" to="/feature-coming-soon" />
       <NavItem icon={<User size={22} />} alt="Profile" Link to="/profile" />
       <NavItem icon={<BookOpenCheck size={22} />} alt="Questionaire" to="/questionaire" />
     </nav>

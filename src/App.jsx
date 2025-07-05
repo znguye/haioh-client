@@ -22,16 +22,19 @@ import MatchmakerHomeScreen from "../features/matchmaker/screens/MatchmakerHomeS
 import CreateProfileScreen from "../features/matchmaker/screens/CreateProfileScreen.jsx";
 import MatchmakerAdminScreen from "../features/matchmaker/screens/MatchmakerAdminScreen.jsx";
 
+//Missing feature screen
+import MissingFeatureScreen from "../features/other/MissingFeatureScreen.jsx";
+
 export default function App() {
   const { role } = useRole();
   const location = useLocation();
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
 // Test main pages
-//   const [user, setUser] = useState(() => {
-//   // Bypass login for development
-//   return { email: "mock@example.com" };
-// });
+  const [user, setUser] = useState(() => {
+  // Bypass login for development
+  return { email: "mock@example.com" };
+});
 
 // Redirect unauthenticated users to auth page
 if (!user && !location.pathname.startsWith("/signup") && location.pathname !== "/login" && location.pathname !== "/auth") {
@@ -75,12 +78,14 @@ if (!user) {
             <>
               <Route path="/" element={<MatchmakerHomeScreen />} />
               <Route path="/create-profile" element={<CreateProfileScreen />} />
-              <Route path="/admin" element={<MatchmakerAdminScreen />} />
+              <Route path="/dashboard" element={<MatchmakerAdminScreen />} />
+              <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
             </>
           ) : (
             <>
               <Route path="/" element={<LonerHomeScreen />} />
               <Route path="/profile" element={<LonerProfile />} />
+              <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
             </>
           )
         ) : (

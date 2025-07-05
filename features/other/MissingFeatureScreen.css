@@ -1,0 +1,27 @@
+.coming-soon-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #444;
+  height: calc(100vh - 112px); /* subtract top + bottom nav height */
+  text-align: center;
+}
+
+.coming-soon-image {
+  max-width: 50%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.coming-soon-content h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.coming-soon-content p {
+  font-size: 1rem;
+  max-width: 240px;
+  color: #666;
+}
