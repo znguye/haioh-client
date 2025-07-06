@@ -21,6 +21,7 @@ import LonerProfile from "../features/loner/screens/LonerProfile.jsx";
 import MatchmakerHomeScreen from "../features/matchmaker/screens/MatchmakerHomeScreen.jsx";
 import CreateProfileScreen from "../features/matchmaker/screens/CreateProfileScreen.jsx";
 import MatchmakerAdminScreen from "../features/matchmaker/screens/MatchmakerAdminScreen.jsx";
+// import LonerDashboardScreen from '../features/matchmaker/screens/MatchmakerAdminScreen.jsx';
 
 //Missing feature screen
 import MissingFeatureScreen from "../features/other/MissingFeatureScreen.jsx";
@@ -78,7 +79,7 @@ if (!user) {
             <>
               <Route path="/" element={<MatchmakerHomeScreen />} />
               <Route path="/create-profile" element={<CreateProfileScreen />} />
-              <Route path="/dashboard" element={<MatchmakerAdminScreen />} />
+              <Route path="/dashboard/:username" element={<MatchmakerAdminScreen />} />
               <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
             </>
           ) : (
