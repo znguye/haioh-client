@@ -1,5 +1,5 @@
-import TopNavBar from "../../components/ui/navbars/TopNavBar.jsx";
-import BottomNavBarMatchmaker from "../../components/ui/navbars/BottomNavBarMatchmaker.jsx";
+import TopNavBar from "../navbars/TopNavBar.jsx";
+import BottomNavBarMatchmaker from "../navbars/BottomNavBarMatchmaker.js";
 import fishIcon from "../../components/ui/images/neutral.png";
 import "./MissingFeatureScreen.css"
 

@@ -8,14 +8,14 @@ import LoginScreen from "../features/auth/Login/LoginScreen.jsx";
 
 // Onboarding Screens
 import OnboardingFlow from "../features/auth/Signup/OnboardingFlow.jsx";
-import SignUpScreen from "../features/auth/Signup/SignUpScreen.jsx";
+import SignUpScreen from "../features/auth/Login/SignUpScreen.jsx";
 import EnterYourName from "../features/auth/Signup/EnterYourName.jsx";
 import BasicInfo from "../features/auth/Signup/BasicInfo.jsx";
-import WelcomeToApp from "../features/auth/Signup/WelcomeToApp.jsx";
+import WelcomeToApp from "../features/auth/Login/WelcomeToApp.jsx";
 
 //Loner Screens
 import LonerHomeScreen from "../features/loner/screens/LonerHomeScreen.jsx"
-import LonerProfile from "../features/loner/screens/LonerProfile.jsx";
+// import LonerProfile from "../features/loner/screens/LonerProfile.jsx";
 
 //Matchmaker Screens
 import MatchmakerHomeScreen from "../features/matchmaker/screens/MatchmakerHomeScreen.jsx";
@@ -25,6 +25,7 @@ import MatchmakerAdminScreen from "../features/matchmaker/screens/MatchmakerAdmi
 
 //Missing feature screen
 import MissingFeatureScreen from "../features/other/MissingFeatureScreen.jsx";
+import PublicProfilePage from "../features/card/PublicProfilePage.jsx";
 
 export default function App() {
   const { role } = useRole();
@@ -78,14 +79,17 @@ if (!user) {
           role === "matchmaker" ? (
             <>
               <Route path="/" element={<MatchmakerHomeScreen />} />
-              <Route path="/create-profile" element={<CreateProfileScreen />} />
+              <Route path="/:username" element={<PublicProfilePage />} />
+              <Route path="/profile" element={<MatchmakerAdminScreen />} />
+              <Route path="/create-profile/:username" element={<CreateProfileScreen />} />
               <Route path="/dashboard/:username" element={<MatchmakerAdminScreen />} />
               <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
             </>
           ) : (
             <>
               <Route path="/" element={<LonerHomeScreen />} />
-              <Route path="/profile" element={<LonerProfile />} />
+              <Route path="/:username" element={<PublicProfilePage />} />
+              <Route path="/create-profile/:username" element={<CreateProfileScreen />} />
               <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
             </>
           )
