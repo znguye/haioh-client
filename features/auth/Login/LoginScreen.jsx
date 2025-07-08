@@ -5,14 +5,28 @@ export default function LoginScreen({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Mock login logic
-    const storedUser = JSON.parse(localStorage.getItem(email));
-    if (storedUser?.password === password) {
-      onLogin(storedUser);
-    } else {
-      alert('Invalid credentials');
+    try {
+      const response = await fetch('http://localhost:5005/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.user) {
+        // Store the token in localStorage
+        if (result.token) {
+          localStorage.setItem('token', result.token);
+        }
+        onLogin(result.user);
+      } else {
+        alert(result.message || 'Invalid credentials');
+      }
+    } catch (err) {
+      alert('Error logging in');
     }
   };
 

@@ -1,102 +1,71 @@
 import {Routes, Route, Navigate, useLocation} from "react-router-dom";
-import useRole from "../context/useRole.jsx";
 import {useState} from "react";
 
 // Auth Screens
 import AuthLandingScreen from "../features/auth/Login/AuthLandingScreen.jsx";
 import LoginScreen from "../features/auth/Login/LoginScreen.jsx";
-
-// Onboarding Screens
-import OnboardingFlow from "../features/auth/Signup/OnboardingFlow.jsx";
 import SignUpScreen from "../features/auth/Login/SignUpScreen.jsx";
-import EnterYourName from "../features/auth/Signup/EnterYourName.jsx";
-import BasicInfo from "../features/auth/Signup/BasicInfo.jsx";
-import WelcomeToApp from "../features/auth/Login/WelcomeToApp.jsx";
 
-//Loner Screens
-import LonerHomeScreen from "../features/loner/screens/LonerHomeScreen.jsx"
-// import LonerProfile from "../features/loner/screens/LonerProfile.jsx";
+// Loner Sign up Screens
+import AddLonerScreen from "../features/SignLonerUp/AddLonerScreen.jsx";
+import CreateProfileScreen from "../features/SignLonerUp/CreateProfileScreen.jsx";
+import AllSetScreen from "../features/SignLonerUp/AllSetScreen.jsx";
 
-//Matchmaker Screens
-import MatchmakerHomeScreen from "../features/matchmaker/screens/MatchmakerHomeScreen.jsx";
-import CreateProfileScreen from "../features/matchmaker/screens/CreateProfileScreen.jsx";
-import MatchmakerAdminScreen from "../features/matchmaker/screens/MatchmakerAdminScreen.jsx";
-// import LonerDashboardScreen from '../features/matchmaker/screens/MatchmakerAdminScreen.jsx';
+//Main screens
+import MatchmakerHomeScreen from "../features/screens/MatchmakerHomeScreen.jsx";
+import LonerPublicProfile from "../features/screens/LonerPublicProfile.jsx";
+import MatchListScreen from "../features/screens/MatchListScreen.jsx";
 
 //Missing feature screen
 import MissingFeatureScreen from "../features/other/MissingFeatureScreen.jsx";
 import PublicProfilePage from "../features/card/PublicProfilePage.jsx";
 
 export default function App() {
-  const { role } = useRole();
   const location = useLocation();
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-// Test main pages
-  const [user, setUser] = useState(() => {
-  // Bypass login for development
-  return { email: "mock@example.com" };
-});
+  // // Test main pages
+  // const [user, setUser] = useState(() => {
+  //   return { email: "mock@example.com" };
+  // });
 
-// Redirect unauthenticated users to auth page
-if (!user && !location.pathname.startsWith("/signup") && location.pathname !== "/login" && location.pathname !== "/auth") {
-  return <Navigate to="/auth" replace />;
-}
+  // Unauthenticated users must go to auth/signup
+  if (
+    !user &&
+    !location.pathname.startsWith("/signup") &&
+    location.pathname !== "/login" &&
+    location.pathname !== "/auth"
+  ) {
+    return <Navigate to="/auth" replace />;
+  }
 
-// If user is not logged in, show auth routes
-if (!user) {
+  // Auth + Signup Flow
+  console.log("User state:", user);
+  if (!user) {
+    return (
+      <Routes>
+        <Route path="/auth" element={<AuthLandingScreen />} />
+        <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
+        <Route path="/signup" element={<SignUpScreen onSignUp={setUser} />} />
+        <Route path="*" element={<Navigate to="/auth" replace />} />
+      </Routes>
+    );
+  }
+
+  
+
+  // Logged-in user flow
   return (
     <Routes>
-      <Route path="/auth" element={<AuthLandingScreen />} />
-      <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
-      
-      <Route path="/signup" element={<OnboardingFlow />}>
-          <Route index element={<SignUpScreen />} />
-          <Route path="name" element={<EnterYourName />} />
-          <Route path="basic-info" element={<BasicInfo />} />
-          <Route path="welcome-to-app" element={<WelcomeToApp />} />
-        </Route>
-
-      <Route path="*" element={<Navigate to="/auth" replace />} />
+      <Route path="/" element={<MatchmakerHomeScreen />} />
+      <Route path="/add-loner" element={<AddLonerScreen />} />
+      <Route path="/create-profile" element={<CreateProfileScreen />} />
+      <Route path="/all-set" element={<AllSetScreen />} />
+      <Route path="/profile" element={<LonerPublicProfile />} />
+      <Route path="/match-list" element={<MatchListScreen />} />
+      <Route path="/:username" element={<PublicProfilePage />} />
+      <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
-  );
-}
-
-  // Add a loading fallback while role is being retrieved
-  if (!role) return <div>Loading...</div>;
-
-  return (
-    <>
-      <Routes>
-        {/* Public routes */}
-        <Route path="/login" element={<LoginScreen onLogin={setUser} />} />
-        {/* <Route path="/signup/" element={<OnboardingFlow setUser={setUser} />} /> */}
-        <Route path="*" element={<Navigate to="/auth" replace />} />
-
-
-        {/* Protected role-based routes */}
-        {user ? (
-          role === "matchmaker" ? (
-            <>
-              <Route path="/" element={<MatchmakerHomeScreen />} />
-              <Route path="/:username" element={<PublicProfilePage />} />
-              <Route path="/profile" element={<MatchmakerAdminScreen />} />
-              <Route path="/create-profile/:username" element={<CreateProfileScreen />} />
-              <Route path="/dashboard/:username" element={<MatchmakerAdminScreen />} />
-              <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
-            </>
-          ) : (
-            <>
-              <Route path="/" element={<LonerHomeScreen />} />
-              <Route path="/:username" element={<PublicProfilePage />} />
-              <Route path="/create-profile/:username" element={<CreateProfileScreen />} />
-              <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
-            </>
-          )
-        ) : (
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        )}
-      </Routes>
-    </>
   );
 }

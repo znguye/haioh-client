@@ -1,5 +1,5 @@
 import TopNavBar from "../navbars/TopNavBar.jsx";
-import BottomNavBarMatchmaker from "../navbars/BottomNavBarMatchmaker.js";
+import BottomNavBar from "../navbars/BottomNavbar.jsx";
 import fishIcon from "../../components/ui/images/neutral.png";
 import "./MissingFeatureScreen.css"
 
@@ -24,7 +24,7 @@ export default function MissingFeatureScreen() {
             </div>
 
             <div className="bottom-nav-wrapper">
-                <BottomNavBarMatchmaker />
+                <BottomNavBar />
             </div>
         </div>
     );

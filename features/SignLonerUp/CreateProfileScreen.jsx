@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "../../services/authService";
+
+const BASE_URL = 'http://localhost:5005'
 
 export default function CreateProfileScreen() {
   const navigate = useNavigate();
@@ -40,8 +43,10 @@ export default function CreateProfileScreen() {
     }
 
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/profiles", {
+      const token = getToken();
+      console.log('Token for profile creation:', token); // Debug log
+      
+      const response = await fetch(`${BASE_URL}/profiles`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

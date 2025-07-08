@@ -2,20 +2,34 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../auth/Auth.css';
 import { Link } from 'react-router-dom';
+import { signup, setToken } from '../../../services/authService';
 
-export default function SignUpScreen() {
+export default function SignUpScreen({ onSignUp }) {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSignUp = (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
-        // Mock signup logic to store user data in localStorage
-        const newUser = { email, password};
-        localStorage.setItem(email, JSON.stringify(newUser));
-        // onSignUp(newUser);
-        console.log("Navigating to add-loner");
-        navigate('/add-loner'); // Redirect to name entry after signup using relative route
+        try {
+            const result = await signup(email, password);
+            if (result && result.user) {
+                // Store the token in localStorage
+                if (result.token) {
+                    setToken(result.token);
+                    console.log('Token stored:', result.token); // Debug log
+                } else {
+                    console.log('No token in response'); // Debug log
+                }
+                // Set the user state to authenticate the user
+                onSignUp(result.user);
+                navigate('/add-loner');
+            } else {
+                alert(result.message || 'Sign up failed');
+            }
+        } catch (err) {
+            alert('Error signing up');
+        }
     };
 
     return (
@@ -45,14 +59,6 @@ export default function SignUpScreen() {
                 <button type="submit" className="login-btn">
                     Sign Up
                 </button>
-
-                {/* <button 
-                    type="button" 
-                    className="google-btn"
-                    onClick={() => alert('Google Sign Up not implemented yet')}
-                >
-                    Sign Up with Google
-                </button> */}
 
                 <p className="signup-text">
                     Already have an account? <Link to="/login">Login</Link>

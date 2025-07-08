@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { MessageCircle, Trash2 } from "lucide-react";
 
-import TopNavBar from "../../navbars/TopNavBar.jsx";
-import BottomNavBar from "../../navbars/BottomNavBarMatchmaker.js";
-import MessageModal from "../../modals/MessageModal.jsx";
+import TopNavBar from "../navbars/TopNavBar.jsx";
+import BottomNavBar from "../navbars/BottomNavbar.jsx";
+import MessageModal from "../modals/MessageModal.jsx";
 import "./LonerDashboardScreen.css";
 
 export default function MatchListScreen() {

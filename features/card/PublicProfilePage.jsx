@@ -4,12 +4,11 @@ import { Heart, MessageCircle } from "lucide-react";
 import "./PublicProfilePage.css";
 
 import TopNavBar from "../navbars/TopNavBar.jsx";
-import BottomNavBarMatchmaker from "../navbars/BottomNavBarMatchmaker.js";
+import BottomNavBar from "../navbars/BottomNavbar.jsx";
 import MessageModal from "../modals/MessageModal.jsx";
 
-// Function to split description into chunks
 function splitDescription(text, maxLen = 120) {
-  const sentences = text.match(/[^.!?]+[.!?]?/g) || [];
+  const sentences = text?.match(/[^.!?]+[.!?]?/g) || [];
   const chunks = [];
   let current = "";
 
@@ -28,46 +27,55 @@ function splitDescription(text, maxLen = 120) {
   return chunks;
 }
 
-
-const mockProfiles = [
-  {
-    id: 1,
-    name: "Ellie",
-    username: "ellie_the_catlover",
-    tagline: "Ellie loves cats and coding — find her a fellow cat dad 🐈‍⬛",
-    photo: "https://images.pexels.com/photos/1777479/pexels-photo-1777479.jpeg",
-    description: "A quiet but curious soul who enjoys building beautiful things on the web. Often found in cafes or next to a purring cat. She has a deep love for minimal design, meaningful conversations, and rainy afternoons with a good book. When she’s not debugging code, she’s daydreaming about future travel or curating oddly satisfying playlists. She’s thoughtful, creative, and a little mysterious — but once you get to know her, you’ll find someone who values depth, kindness, and a good meme.",
-    age: 28,
-    location: "Barcelona",
-  },
-  {
-    id: 2,
-    name: "Josh",
-    username: "dronejosh",
-    tagline: "Josh builds drones but hasn’t landed a date yet 🚁",
-    photo: "https://images.pexels.com/photos/2915216/pexels-photo-2915216.jpeg",
-    description: "Drone enthusiast. Might fly into your heart (but never crash). Loves tinkering with tech, filming cityscapes from above, and geeking out over aviation documentaries. Josh is the kind of guy who brings snacks for the whole crew and remembers everyone’s birthday. He’s loyal, laid back, and secretly writes poetry — but don’t tell his friends. Looking for someone to explore abandoned rooftops with or binge sci-fi while eating homemade ramen.",
-    age: 27,
-    location: "Lisbon",
-  }
-];
-
 export default function PublicProfilePage() {
   const { username } = useParams();
-  const [profile, setProfile ] = useState(null);
-
+  const [profile, setProfile] = useState(null);
+  const [descriptionChunks, setDescriptionChunks] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showMessageModal, setShowMessageModal] = useState(false);
-  const offsetY = 50; // default centered
+  const [error, setError] = useState("");
+  const offsetY = 50;
 
   useEffect(() => {
-    const found = mockProfiles.find((p) => p.username === username);
-    setProfile(found);
+    async function fetchProfile() {
+      try {
+        const res = await fetch(`/profiles/${username}`);
+        if (!res.ok) throw new Error("Failed to fetch profile");
+        const data = await res.json();
+        setProfile(data.profile);
+        setDescriptionChunks(splitDescription(data.profile.description));
+      } catch (err) {
+        setError("Could not load profile.");
+        console.error(err);
+      }
+    }
+    fetchProfile();
   }, [username]);
 
-  if (!profile) return <div>Profile not found</div>;
+  async function handleMatch() {
+    try {
+      const res = await fetch("/matchmakingActions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Optional: add authorization if needed
+        },
+        body: JSON.stringify({
+          profileId: profile._id,
+          actionType: "like",
+        }),
+      });
 
-  const descriptionChunks = splitDescription(profile.description);
+      if (!res.ok) throw new Error("Failed to record match");
+      alert("Added to match list!");
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
+    }
+  }
+
+  if (error) return <div>{error}</div>;
+  if (!profile) return <div>Loading...</div>;
 
   return (
     <div className="screen-container">
@@ -80,7 +88,7 @@ export default function PublicProfilePage() {
           <div
             className="header-image-wrapper"
             style={{
-              backgroundImage: `url(${profile.photo})`,
+              backgroundImage: `url(${profile.profilePicture || "https://via.placeholder.com/300"})`,
               backgroundSize: "cover",
               backgroundPosition: `center ${offsetY}%`,
             }}
@@ -109,7 +117,7 @@ export default function PublicProfilePage() {
 
           <div className="profile-meta subdued">
             <span className="profile-basic-info">
-              {profile.username} • {profile.age} • from {profile.location}
+              @{profile.username} • {profile.age || "unknown"} • from {profile.location || "somewhere"}
             </span>
           </div>
 
@@ -123,7 +131,7 @@ export default function PublicProfilePage() {
           )}
 
           <div className="actions-row column-buttons">
-            <button className="action-btn light">
+            <button className="action-btn light" onClick={handleMatch}>
               <Heart size={18} /> Match
             </button>
             <button
@@ -137,7 +145,7 @@ export default function PublicProfilePage() {
       </main>
 
       <div className="bottom-nav-wrapper">
-        <BottomNavBarMatchmaker />
+        <BottomNavBar />
       </div>
     </div>
   );

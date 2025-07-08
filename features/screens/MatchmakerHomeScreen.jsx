@@ -1,5 +1,5 @@
-import TopNavBar from "../../navbars/TopNavBar.jsx";
-import BottomNavBar from "../../navbars/BottomNavBar.js";
+import TopNavBar from "../navbars/TopNavBar.jsx";
+import BottomNavBar from "../navbars/BottomNavbar.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./HomeScreen.css"

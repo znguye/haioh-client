@@ -1,5 +1,5 @@
-import TopNavBar from "../../navbars/TopNavBar.jsx";
-import BottomNavBarLoner from "../../navbars/BottomNavbarLoner.js";
+import TopNavBar from "../navbars/TopNavBar.jsx";
+import BottomNavBar from "../navbars/BottomNavbar.jsx";
 import './Profile.css'; 
 import { useEffect, useState } from "react";
 
