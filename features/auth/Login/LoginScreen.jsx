@@ -72,7 +72,7 @@ export default function LoginScreen({ onLogin }) {
         <button type="submit" className="login-btn">Login</button>
 
         <p className="signup-text">
-          Don’t have an account? <a href="/signup">Sign up</a>
+          Don’t have an account? <Link to="/signup">Sign up</Link>
         </p>
       </form>
     </div>
