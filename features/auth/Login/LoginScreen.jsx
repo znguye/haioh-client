@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../Auth.css';
 import { useNavigate } from 'react-router-dom';
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+import { Link } from 'react-router-dom';
 
 export default function LoginScreen({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -78,3 +79,4 @@ export default function LoginScreen({ onLogin }) {
     </div>
   );
 }
+
