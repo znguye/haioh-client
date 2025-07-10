@@ -1,6 +1,6 @@
 import { Home, User, Heart, BookOpenCheck, SquareKanban } from "lucide-react";
 import { Link } from "react-router-dom";
-import './BottomNavBar.css';
+import './BottomNavbar.css';
 
 export default function BottomNavBar() {
   return (
