@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomeScreen.css"
 import ProfileCard from "../card/ProfileCard.jsx";
-
+const API = "https://yakrush.onrender.com";
 
 
 export default function MatchmakerHomeScreen() {
@@ -15,7 +15,7 @@ export default function MatchmakerHomeScreen() {
     useEffect(() => {
         async function fetchProfiles() {
             try {
-                const res = await fetch("/profiles");
+                const res = await fetch(`${API}/profiles`)
                 const data = await res.json();
                 setProfiles(data);
             } catch (err) {
@@ -40,7 +40,7 @@ export default function MatchmakerHomeScreen() {
                 username={person.username}
                 photo={person.profilePicture || person.photo || "https://via.placeholder.com/300"}
                 tagline={person.tagline}
-                onClick={() => navigate(`/profile/${person.username}`)}
+                onClick={() => navigate(`/profiles/${person.username}`)}
             />
             ))}
         </div>
