@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../Auth.css';
+import '../../Auth.css';
 import { useNavigate } from 'react-router-dom';
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
