@@ -1,14 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Heart, MessageCircle } from "lucide-react";
-import "./PublicProfilePage.css";
-
 import TopNavBar from "../navbars/TopNavBar.jsx";
 import BottomNavBar from "../navbars/BottomNavbar.jsx";
 import MessageModal from "../modals/MessageModal.jsx";
+import "./PublicProfilePage.css";
 
 function splitDescription(text, maxLen = 120) {
-  const sentences = text?.match(/[^.!?]+[.!?]?/g) || [];
+  const sentences = text.match(/[^.!?]+[.!?]?/g) || [];
   const chunks = [];
   let current = "";
 
@@ -30,52 +29,88 @@ function splitDescription(text, maxLen = 120) {
 export default function PublicProfilePage() {
   const { username } = useParams();
   const [profile, setProfile] = useState(null);
-  const [descriptionChunks, setDescriptionChunks] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showMessageModal, setShowMessageModal] = useState(false);
-  const [error, setError] = useState("");
-  const offsetY = 50;
+  const [offsetY, setOffsetY] = useState(50);
+  const imageRef = useRef(null);
+  const startY = useRef(0);
 
   useEffect(() => {
     async function fetchProfile() {
       try {
         const res = await fetch(`/profiles/${username}`);
-        if (!res.ok) throw new Error("Failed to fetch profile");
         const data = await res.json();
-        setProfile(data.profile);
-        setDescriptionChunks(splitDescription(data.profile.description));
+        if (data.profile) {
+          setProfile(data.profile);
+        } else {
+          alert("Profile not found");
+        }
       } catch (err) {
-        setError("Could not load profile.");
         console.error(err);
+        alert("Something went wrong");
       }
     }
     fetchProfile();
   }, [username]);
 
-  async function handleMatch() {
+  const handleTouchStart = (e) => {
+    startY.current = e.touches ? e.touches[0].clientY : e.clientY;
+  };
+
+  const handleTouchMove = (e) => {
+    const currentY = e.touches ? e.touches[0].clientY : e.clientY;
+    const deltaY = currentY - startY.current;
+    const newOffset = Math.min(100, Math.max(0, offsetY + deltaY / 2));
+    setOffsetY(newOffset);
+    startY.current = currentY;
+  };
+
+    const handleMatch = async () => {
     try {
-      const res = await fetch("/matchmakingActions", {
+      const token = localStorage.getItem("token");
+      const actorEmail = localStorage.getItem("email");
+      const profileId = profile?.id || profile?._id;
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+
+      if (!profileId) {
+        throw new Error("Missing profile ID");
+      }
+
+      //test
+      console.log("Sending match:", {
+        profileId,
+        actorEmail,
+        actionType: "like",
+      });
+
+      const res = await fetch(`${API_URL}/matchmaking-actions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Optional: add authorization if needed
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          profileId: profile._id,
+          profileId,
+          actorEmail,
           actionType: "like",
         }),
       });
 
-      if (!res.ok) throw new Error("Failed to record match");
-      alert("Added to match list!");
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error("Match response:", errorText);
+        throw new Error("Failed to record match");
+      }
+      alert("Matched!");
     } catch (err) {
-      console.error(err);
+      console.error("Error in handleMatch:", err);
       alert("Something went wrong");
     }
-  }
+  };
 
-  if (error) return <div>{error}</div>;
-  if (!profile) return <div>Loading...</div>;
+  if (!profile) return <p>Loading profile...</p>;
+
+  const descriptionChunks = splitDescription(profile.description);
 
   return (
     <div className="screen-container">
@@ -88,11 +123,14 @@ export default function PublicProfilePage() {
           <div
             className="header-image-wrapper"
             style={{
-              backgroundImage: `url(${profile.profilePicture || "https://via.placeholder.com/300"})`,
+              backgroundImage: `url(${profile.profilePicture || profile.photo})`,
               backgroundSize: "cover",
               backgroundPosition: `center ${offsetY}%`,
             }}
-          />
+            ref={imageRef}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+          ></div>
 
           <div className="tagline-box no-bg">
             <h6 className="tagline tagline-purple">{profile.tagline}</h6>
@@ -117,7 +155,7 @@ export default function PublicProfilePage() {
 
           <div className="profile-meta subdued">
             <span className="profile-basic-info">
-              @{profile.username} • {profile.age || "unknown"} • from {profile.location || "somewhere"}
+              @{profile.username} • {profile.age || "unknown"} • from {profile.from || "unknown"}
             </span>
           </div>
 

@@ -5,7 +5,7 @@ import './TopNavBar.css';
 import LonerFish from "../../components/ui/images/Toggle_Loner.png";
 
 
-export default function TopNavBar() {
+export default function TopNavBar({ onLogout }) {
   return (
     <div className="top-nav">
       <div className="nav-left">
@@ -26,7 +26,7 @@ export default function TopNavBar() {
       </div>
 
       <div className="nav-right">
-        <SettingsDropdown />
+        <SettingsDropdown onLogout={onLogout} />
       </div>
     </div>
   );

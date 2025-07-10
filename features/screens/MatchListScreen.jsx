@@ -6,6 +6,8 @@ import BottomNavBar from "../navbars/BottomNavbar.jsx";
 import MessageModal from "../modals/MessageModal.jsx";
 import "./LonerDashboardScreen.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+
 export default function MatchListScreen() {
   const [matches, setMatches] = useState([]);
   const [selectedProfile, setSelectedProfile] = useState(null);
@@ -15,23 +17,29 @@ export default function MatchListScreen() {
     async function fetchMatches() {
       try {
         const token = localStorage.getItem("token");
-        const userEmail = localStorage.getItem("email"); // store this on login
+        const userEmail = localStorage.getItem("email");
 
-        const res = await fetch(`/matchmaking-actions/liked-by/${userEmail}`, {
+        const res = await fetch(`${API_URL}/matchmaking-actions/liked-by/${userEmail}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
+
+        if (!res.ok) throw new Error("Failed to fetch match actions");
+
         const actions = await res.json();
 
-        // Load full profiles for each liked profileId
         const profileResponses = await Promise.all(
-          actions.map((action) =>
-            fetch(`/profiles/${action.profileId}`).then((res) => res.json())
-          )
+          actions.map(async (action) => {
+            const profileRes = await fetch(`${API_URL}/profiles/by-id/${action.profileId}`);
+            if (!profileRes.ok) return null;
+            const result = await profileRes.json();
+            return result.profile || result; // unwrap if nested
+          })
         );
 
-        setMatches(profileResponses);
+        const validProfiles = profileResponses.filter(Boolean);
+        setMatches(validProfiles);
       } catch (err) {
         console.error(err);
         setError("Failed to load match list.");
@@ -41,8 +49,31 @@ export default function MatchListScreen() {
     fetchMatches();
   }, []);
 
-  const handleDelete = (id) => {
-    setMatches(matches.filter(profile => profile._id !== id));
+  const handleDelete = async (profileId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const actorEmail = localStorage.getItem("email");
+
+      const res = await fetch(
+        `${API_URL}/matchmaking-actions/${profileId}/${actorEmail}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to delete match");
+      }
+
+      // Remove from UI after successful delete
+      setMatches((prev) => prev.filter(p => p.id !== profileId && p._id !== profileId));
+    } catch (err) {
+      console.error("Delete error:", err);
+      setError("Failed to delete match");
+    }
   };
 
   return (
@@ -59,16 +90,16 @@ export default function MatchListScreen() {
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <div className="match-list">
-          {matches.map((profile) => (
-            <div key={profile._id} className="match-row">
+          {matches.map((profile, index) => (
+            <div key={profile.id || profile._id || index} className="match-row">
               <div className="profile-info">
                 <img
-                  src={profile.profilePicture || profile.photo || "https://via.placeholder.com/300"}
-                  alt={profile.first_name}
+                  src={profile.profilePicture || profile.photo || "/default-avatar.png"}
+                  alt={profile.username ? `${profile.username}'s photo` : "profile"}
                   className="profile-photo"
                 />
                 <div className="text-info">
-                  <span className="username">@{profile.username}</span>
+                  <span className="username">@{profile.username || "unknown"}</span>
                   <span className="action-tag">Matched</span>
                 </div>
               </div>
@@ -78,7 +109,7 @@ export default function MatchListScreen() {
                   <MessageCircle size={18} />
                 </button>
 
-                <button onClick={() => handleDelete(profile._id)} aria-label="Delete">
+                <button onClick={() => handleDelete(profile.id || profile._id)} aria-label="Delete">
                   <Trash2 size={18} />
                 </button>
               </div>

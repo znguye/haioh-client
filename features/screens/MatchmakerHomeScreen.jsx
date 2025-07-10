@@ -1,7 +1,7 @@
 import TopNavBar from "../navbars/TopNavBar.jsx";
 import BottomNavBar from "../navbars/BottomNavbar.jsx";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./HomeScreen.css"
 import ProfileCard from "../card/ProfileCard.jsx";
 
@@ -10,6 +10,7 @@ import ProfileCard from "../card/ProfileCard.jsx";
 export default function MatchmakerHomeScreen() {
     const [profiles, setProfiles] = useState([]);
     const [err, setError] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchProfiles() {
@@ -34,17 +35,13 @@ export default function MatchmakerHomeScreen() {
             {profiles.length === 0 && !err && <p>Profiles not found!</p>}
 
             {profiles.map((person) => (
-            <Link 
-                to={`/profile/${person.username}`} 
-                key={person.id || person.username} 
-                style={{ textDecoration: 'none' }}
-            >
-                <ProfileCard 
+            <ProfileCard 
+                key={person.id || person.username}
                 username={person.username}
                 photo={person.profilePicture || person.photo || "https://via.placeholder.com/300"}
                 tagline={person.tagline}
-                />
-            </Link>
+                onClick={() => navigate(`/profile/${person.username}`)}
+            />
             ))}
         </div>
 

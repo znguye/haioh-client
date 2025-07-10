@@ -1,5 +1,5 @@
-import {Routes, Route, Navigate, useLocation} from "react-router-dom";
-import {useState} from "react";
+import {Routes, Route, Navigate, useLocation, useNavigate} from "react-router-dom";
+import {useState, useEffect} from "react";
 
 // Auth Screens
 import AuthLandingScreen from "../features/auth/Login/AuthLandingScreen.jsx";
@@ -20,9 +20,25 @@ import MatchListScreen from "../features/screens/MatchListScreen.jsx";
 import MissingFeatureScreen from "../features/other/MissingFeatureScreen.jsx";
 import PublicProfilePage from "../features/card/PublicProfilePage.jsx";
 
+// Not found screen
+import NotFoundScreen from "../features/other/404Page.jsx";
+
 export default function App() {
   const location = useLocation();
-  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const [user, setUser] = useState(() => {
+    const stored = localStorage.getItem('user');
+    return stored ? JSON.parse(stored) : null;
+  });
+
+  // Keep localStorage in sync with user state
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [user]);
 
   // // Test main pages
   // const [user, setUser] = useState(() => {
@@ -52,20 +68,31 @@ export default function App() {
     );
   }
 
-  
+  // Logout handler
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    setUser(null);
+    navigate('/auth');
+  };
 
   // Logged-in user flow
   return (
     <Routes>
-      <Route path="/" element={<MatchmakerHomeScreen />} />
+      <Route path="/" element={<MatchmakerHomeScreenWithNav onLogout={handleLogout} />} />
       <Route path="/add-loner" element={<AddLonerScreen />} />
       <Route path="/create-profile" element={<CreateProfileScreen />} />
       <Route path="/all-set" element={<AllSetScreen />} />
       <Route path="/profile" element={<LonerPublicProfile />} />
       <Route path="/match-list" element={<MatchListScreen />} />
-      <Route path="/:username" element={<PublicProfilePage />} />
+      <Route path="/profiles/:username" element={<PublicProfilePage />} />
       <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<NotFoundScreen />} />
     </Routes>
   );
+}
+
+// Helper HOC to inject onLogout into MatchmakerHomeScreen
+function MatchmakerHomeScreenWithNav({ onLogout }) {
+  return <MatchmakerHomeScreen onLogout={onLogout} />;
 }

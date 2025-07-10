@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getToken } from "../../services/authService";
+import "./CreateProfileScreen.css";
 
 const BASE_URL = 'http://localhost:5005'
 
@@ -60,8 +61,15 @@ export default function CreateProfileScreen() {
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || "Failed to create profile");
+        let errorMsg = '';
+        try {
+          const data = await response.json();
+          errorMsg = data.message || JSON.stringify(data);
+        } catch (err) {
+          errorMsg = await response.text();
+        }
+        console.error('Profile creation error:', errorMsg);
+        throw new Error(errorMsg || "Failed to create profile");
       }
 
       navigate("/all-set");
@@ -74,7 +82,7 @@ export default function CreateProfileScreen() {
     <div className="login-container">
 
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Create Your Profile</h2>
+        <h2>Create Your Singleton's Profile</h2>
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 

@@ -1,0 +1,96 @@
+/* CreateProfileScreen.css */
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  /* padding: 24px 16px; */
+  padding-top: 10rem;
+  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form h2 {
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.login-form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.login-form input,
+.login-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-form input:focus,
+.login-form textarea:focus {
+  outline: none;
+  border-color: #999;
+  background-color: #fff;
+}
+
+.login-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.selection-group {
+  display: flex;
+  justify-content: space-between;
+  /* gap: 8px; */
+}
+
+.selection-option {
+  flex: 1;
+  font-size: 14px;
+  padding: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #f0f0f0;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selection-option.selected {
+  background-color: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.login-btn {
+  margin-top: 8px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #000;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  text-align: center;
+  margin-top: -6px;
+}
