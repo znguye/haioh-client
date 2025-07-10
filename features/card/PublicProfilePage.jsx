@@ -38,7 +38,8 @@ export default function PublicProfilePage() {
   useEffect(() => {
     async function fetchProfile() {
       try {
-        const res = await fetch(`/profiles/${username}`);
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+        const res = await fetch(`${API_URL}/profiles/${username}`);
         const data = await res.json();
         if (data.profile) {
           setProfile(data.profile);

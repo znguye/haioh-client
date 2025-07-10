@@ -73,7 +73,8 @@ export default function LonerPublicProfile() {
         description: description || undefined,
       };
       Object.keys(updates).forEach(key => updates[key] === undefined && delete updates[key]);
-      const res = await fetch(`/profiles`, {
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+      const res = await fetch(`${API_URL}/profiles`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -99,7 +100,8 @@ export default function LonerPublicProfile() {
     async function fetchProfile() {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("/profiles/me", {
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+        const res = await fetch(`${API_URL}/profiles/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

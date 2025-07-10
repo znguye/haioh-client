@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../Auth.css';
 import { useNavigate } from 'react-router-dom';
-// const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
 export default function LoginScreen({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -27,7 +27,7 @@ export default function LoginScreen({ onLogin }) {
 
         // Check if the user has a profile
         const token = result.token;
-        const profileRes = await fetch(`/profiles/me`, {
+        const profileRes = await fetch(`${BASE_URL}/profiles/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

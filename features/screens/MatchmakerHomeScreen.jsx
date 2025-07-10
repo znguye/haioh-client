@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomeScreen.css"
 import ProfileCard from "../card/ProfileCard.jsx";
-const API = "https://yakrush.onrender.com";
+const API = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
 
 export default function MatchmakerHomeScreen() {
