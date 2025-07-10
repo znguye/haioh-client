@@ -79,7 +79,10 @@ export default function MatchListScreen() {
   return (
     <div className="dashboard-screen-container">
       <div className="top-nav-wrapper">
-        <TopNavBar />
+        <TopNavBar onLogout={() => {
+          localStorage.clear();
+          window.location.href = '/auth';
+        }} />
       </div>
 
       <div className="dashboard-container">

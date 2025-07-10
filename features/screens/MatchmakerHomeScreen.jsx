@@ -7,7 +7,7 @@ import ProfileCard from "../card/ProfileCard.jsx";
 const API = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
 
-export default function MatchmakerHomeScreen() {
+export default function MatchmakerHomeScreen({ onLogout }) {
     const [profiles, setProfiles] = useState([]);
     const [err, setError] = useState("");
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function MatchmakerHomeScreen() {
     return (
         <div className="screen-container">
             <div className="top-nav-wrapper">
-                <TopNavBar />
+                <TopNavBar onLogout={onLogout} />
             </div>
 
         <div className="main-content scroll-container">

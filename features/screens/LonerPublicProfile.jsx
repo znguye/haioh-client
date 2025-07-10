@@ -147,7 +147,10 @@ export default function LonerPublicProfile() {
   return (
     <div className="screen-container">
       <div className="top-nav-wrapper">
-        <TopNavBar />
+        <TopNavBar onLogout={() => {
+          localStorage.clear();
+          window.location.href = '/auth';
+        }} />
       </div>
 
       <main className="profile-content">

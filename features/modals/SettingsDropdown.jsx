@@ -27,8 +27,11 @@ export default function SettingsDropdown({ onLogout }) {
   const handleLogout = () => {
     localStorage.clear();
     setIsOpen(false);
-    onLogout?.(); // Optional callback
-    navigate("/auth");
+    if (onLogout) {
+      onLogout(); // Use the passed logout handler
+    } else {
+      navigate("/auth"); // Fallback if no handler passed
+    }
   };
 
   const handleDeleteAccount = async () => {
