@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../auth/Auth.css';
+import '../Auth.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginScreen({ onLogin }) {

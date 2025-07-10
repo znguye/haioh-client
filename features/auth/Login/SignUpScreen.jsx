@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import '../../auth/Auth.css';
+import '../Auth.css';
 import { signup, setToken } from '../../../services/authService';
 
 export default function SignUpScreen({ onSignUp }) {
