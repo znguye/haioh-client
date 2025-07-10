@@ -43,7 +43,6 @@
   display: block;
   width: 22px;
   height: 22px;
-  background-image: url('/path/to/fish-icon.svg');
   background-size: contain;
   background-repeat: no-repeat;
 }

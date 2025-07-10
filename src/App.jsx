@@ -83,7 +83,7 @@ export default function App() {
       <Route path="/add-loner" element={<AddLonerScreen />} />
       <Route path="/create-profile" element={<CreateProfileScreen />} />
       <Route path="/all-set" element={<AllSetScreen />} />
-      <Route path="/profile" element={<LonerPublicProfile />} />
+      <Route path="/profiles" element={<LonerPublicProfile />} />
       <Route path="/match-list" element={<MatchListScreen />} />
       <Route path="/profiles/:username" element={<PublicProfilePage />} />
       <Route path="/feature-coming-soon" element={<MissingFeatureScreen />} />
