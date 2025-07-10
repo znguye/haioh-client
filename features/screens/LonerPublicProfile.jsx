@@ -6,6 +6,7 @@ import TopNavBar from "../navbars/TopNavBar.jsx";
 import BottomNavBar from "../navbars/BottomNavbar.jsx";
 import MessageModal from "../modals/MessageModal.jsx";
 import DeleteModal from "../modals/DeleteModal.jsx";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
 function splitDescription(text, maxLen = 120) {
   const sentences = text.match(/[^.!?]+[.!?]?/g) || [];
@@ -46,7 +47,7 @@ export default function LonerPublicProfile() {
   async function handleDeleteProfile() {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/profiles/${profile.id}`, {
+      const res = await fetch(`${BASE_URL}/profiles/${profile.id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`
