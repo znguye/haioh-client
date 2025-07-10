@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Menu, X } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import "./SettingsDropdown.css";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
 export default function SettingsDropdown({ onLogout }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function SettingsDropdown({ onLogout }) {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/delete-account`, {
+      const res = await fetch(`${BASE_URL}/auth/delete-account`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`
