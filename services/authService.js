@@ -1,5 +1,5 @@
 //Purpose: Handles authentication-related operations such as login, logout, and registration.
-const BASE_URL = 'http://localhost:5005'
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
 export const login = async (email, password) => {
   return await fetch(`${BASE_URL}/auth/login`, {
