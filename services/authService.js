@@ -9,6 +9,14 @@ export const login = async (email, password) => {
   }).then(res => res.json());
 };
 
+export const signup = async (email, password) => {
+  return await fetch(`${BASE_URL}/auth/signup`, {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+    headers: { 'Content-Type': 'application/json' }
+  }).then(res => res.json());
+};
+
 // Utility functions for token management
 export const getToken = () => {
   return localStorage.getItem('token');
