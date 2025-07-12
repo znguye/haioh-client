@@ -8,7 +8,7 @@ Yakrush is a dating and matchmaking app with a twist: your friends create your p
 
 - **Frontend:** [yakrush.netlify.app](https://yakrush.netlify.app/)
 - **Backend API:** [yakrush.onrender.com](https://yakrush.onrender.com)
-- **Presentation:** [docs.google.com/presentation/yakrush.com]([https://docs.google.com/presentation/d/1xUz4ZjV-S0gHj1ync-bvi9ZFpsicRxFv6dEsmzsfQKM/edit?slide=id.g36ebbf19240_0_0#slide=id.g36ebbf19240_0_0](https://docs.google.com/presentation/d/1xUz4ZjV-S0gHj1ync-bvi9ZFpsicRxFv6dEsmzsfQKM/edit?slide=id.g36e88c40378_0_0#slide=id.g36e88c40378_0_0))
+- **Presentation:** [docs.google.com/presentation/yakrush.com]([https://docs.google.com/presentation/d/1xUz4ZjV-S0gHj1ync-bvi9ZFpsicRxFv6dEsmzsfQKM/edit?slide=id.g36ebbf19240_0_0#slide=id.g36ebbf19240_0_0](https://docs.google.com/presentation/d/1xUz4ZjV-S0gHj1ync-bvi9ZFpsicRxFv6dEsmzsfQKM/edit?slide=id.g36e88c40378_0_0#slide=id.g36e88c40378_0_0)
 
 ---
 
